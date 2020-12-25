@@ -1,13 +1,14 @@
-package com.mailcast.MailCastObjects;
+package com.mailcast.Objects;
 
 import java.sql.Timestamp;
 
-public class PendingSend {
+public class PendingMail {
 	
 	public final String emailAddress;
 	public final long newsletterId;
 	public final String title;
 	public final String content;
+	public final Timestamp postDateTime;
 	private int attemptLeft;
 	
 	/**
@@ -16,13 +17,15 @@ public class PendingSend {
 	 * @param newsletterId
 	 * @param title
 	 * @param content
+	 * @param postDatTime
 	 * @param attemptLeft
 	 */
-	public PendingSend(String emailAddress, long newsletterId, String title, String content, byte attemptLeft) {
+	public PendingMail(String emailAddress, long newsletterId, String title, String content, Timestamp postDateTime, byte attemptLeft) {
 		this.emailAddress = emailAddress;
 		this.newsletterId = newsletterId;
 		this.title = title;
 		this.content = content;
+		this.postDateTime = postDateTime;
 		this.attemptLeft = attemptLeft;
 	}
 	
@@ -41,11 +44,11 @@ public class PendingSend {
             return true; 
         } 
   
-        if (!(o instanceof PendingSend)) { 
+        if (!(o instanceof PendingMail)) { 
             return false; 
         } 
            
-        PendingSend c = (PendingSend) o; 
+        PendingMail c = (PendingMail) o; 
         
         return !(
         		(this.emailAddress != null && !this.emailAddress.equals(c.emailAddress)) ||

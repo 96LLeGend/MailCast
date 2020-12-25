@@ -1,4 +1,4 @@
-package com.mailcast.MailCastObjects;
+package com.mailcast.Objects;
 
 import java.util.List;
 

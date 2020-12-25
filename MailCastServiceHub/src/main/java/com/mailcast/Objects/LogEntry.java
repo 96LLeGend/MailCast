@@ -1,8 +1,8 @@
-package com.mailcast.MailCastObjects;
+package com.mailcast.Objects;
 
 import java.sql.Timestamp;
 
-public class SentHistory {
+public class LogEntry {
 	
 	public final long id;
 	public final String emailAddress;
@@ -12,7 +12,7 @@ public class SentHistory {
 	public final Timestamp sentDateTime;
 	
 	/**
-	 * A sent history, and once created, those can not be changed
+	 * A log entry represent a sent history, and once created, those can not be changed
 	 * @param id
 	 * @param emailAddress
 	 * @param newsletterId
@@ -20,7 +20,7 @@ public class SentHistory {
 	 * @param success
 	 * @param sentDateTime
 	 */
-	public SentHistory(long id, String emailAddress, Newsletter newsletter, boolean success, Timestamp sentDateTime) {
+	public LogEntry (long id, String emailAddress, Newsletter newsletter, boolean success, Timestamp sentDateTime) {
 		this.id = id;
 		this.emailAddress = emailAddress;
 		this.newsletterId = newsletter == null ? 0 : newsletter.id;
@@ -36,11 +36,11 @@ public class SentHistory {
             return true; 
         } 
   
-        if (!(o instanceof SentHistory)) { 
+        if (!(o instanceof LogEntry)) { 
             return false; 
         } 
            
-        SentHistory c = (SentHistory) o; 
+        LogEntry c = (LogEntry) o; 
         
         return !(
         		(this.id != c.id) ||
