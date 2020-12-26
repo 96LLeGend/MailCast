@@ -4,10 +4,12 @@ import java.sql.Timestamp;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mailcast.Objects.*;
 
@@ -23,5 +25,12 @@ public class GreetingController {
 	@GetMapping("/greeting")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return new Greeting(counter.incrementAndGet(), String.format(template, name));
+	}
+	
+	@GetMapping("/testErrorHandling")
+	public String getError() {
+		throw new ResponseStatusException(
+				HttpStatus.INTERNAL_SERVER_ERROR, 
+				"Fake Null Pointer Exception");
 	}
 }
