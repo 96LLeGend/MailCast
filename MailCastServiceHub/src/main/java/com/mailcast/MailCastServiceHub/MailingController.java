@@ -2,8 +2,13 @@ package com.mailcast.MailCastServiceHub;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,27 +22,37 @@ import com.mailcast.Objects.*;
 public class MailingController {
 
 	@GetMapping("/sendingLogs")
-	public APIGetResult<LogEntry> getSendingLogs() {
+	public List<LogEntry> getSendingLogs() {
 		try {
-			return new APIGetResult<LogEntry>(MockDataBase.getlogs());
+			return MockDataBase.getlogs();
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 	
 	@GetMapping("/newsletters")
-	public APIGetResult<Newsletter> getNewsletters() {
+	public List<Newsletter> getNewsletters() {
 		try {
-			return new APIGetResult<Newsletter>(MockDataBase.getNewsletters());
+			return MockDataBase.getNewsletters();
+		} catch (Exception ex) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+		}
+	}
+	
+	@PostMapping("/newsletter")
+	public Newsletter postNewNewsletter(@RequestBody NewsletterAPIO newsletter) {
+		try {
+			Newsletter newNewsletter = new Newsletter(0, newsletter.title, newsletter.content, newsletter.postDateTime);
+			return MockDataBase.sendNewsletter(newNewsletter);
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
 	
 	@GetMapping("/pendingMails")
-	public APIGetResult<PendingMail> getPendingMails() {
+	public List<PendingMail> getPendingMails() {
 		try {
-			return new APIGetResult<PendingMail>(MockDataBase.getPendingMails());
+			return MockDataBase.getPendingMails();
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}

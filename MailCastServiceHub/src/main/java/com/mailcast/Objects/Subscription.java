@@ -17,6 +17,10 @@ public class Subscription {
 		this.subscriptionTimestamp = subscriptionTimestamp;
 	}
 	
+	public Timestamp getSubscriptionTimestamp() {
+		return this.subscriptionTimestamp;
+	}
+	
     @Override
     public boolean equals(Object o) { 
   

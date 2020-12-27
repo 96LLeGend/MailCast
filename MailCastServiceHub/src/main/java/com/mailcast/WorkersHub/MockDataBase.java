@@ -2,12 +2,17 @@ package com.mailcast.WorkersHub;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.mailcast.Objects.*;
 
 public class MockDataBase {
+	
+	private final static AtomicLong newsletterCounter = new AtomicLong();
+	private final static AtomicLong logEntryCounter = new AtomicLong();
 
 	private static List<Subscription> subscriptions = new ArrayList<Subscription>();
 	private static List<Newsletter> newsletters = new ArrayList<Newsletter>();
@@ -20,13 +25,13 @@ public class MockDataBase {
 		subscriptions.add(subs1);
 		subscriptions.add(subs2);
 		
-		Newsletter news1 = new Newsletter(1, "title 1", "content 1", new Timestamp(2020, 12, 22, 8, 10, 20, 30));
-		Newsletter news2 = new Newsletter(2, "title 2", "content 2", new Timestamp(2020, 12, 25, 8, 11, 20, 30));
+		Newsletter news1 = new Newsletter(newsletterCounter.incrementAndGet(), "title 1", "content 1", new Timestamp(2020, 12, 22, 8, 10, 20, 30));
+		Newsletter news2 = new Newsletter(newsletterCounter.incrementAndGet(), "title 2", "content 2", new Timestamp(2020, 12, 25, 8, 11, 20, 30));
 		newsletters.add(news1);
 		newsletters.add(news2);
 		
-		LogEntry log1 = new LogEntry(1, "abc@efg.com", news1, false, new Timestamp(2020, 12, 22, 8, 10, 20, 31));
-		LogEntry log2 = new LogEntry(1, "123@efg.com", news1, true, new Timestamp(2020, 12, 22, 8, 10, 20, 32));
+		LogEntry log1 = new LogEntry(logEntryCounter.incrementAndGet(), "abc@efg.com", news1, false, new Timestamp(2020, 12, 22, 8, 10, 20, 31));
+		LogEntry log2 = new LogEntry(logEntryCounter.incrementAndGet(), "123@efg.com", news1, true, new Timestamp(2020, 12, 22, 8, 10, 20, 32));
 		logs.add(log1);
 		logs.add(log2);
 		
@@ -52,7 +57,19 @@ public class MockDataBase {
 		return pendingMails;
 	}
 	
+	public static Subscription subscribe(String emailAddress) {
+		Subscription subscription = new Subscription(emailAddress, new Timestamp(new Date().getTime()));
+		subscriptions.add(subscription);
+		return subscriptions.stream().max(Comparator.comparing(Subscription::getSubscriptionTimestamp)).orElse(null);
+	}
+	
 	public static void unsubscribe (String emailAddress) {
 		subscriptions.remove(new Subscription(emailAddress, new Timestamp(new Date().getTime())));
+	}
+	
+	public static Newsletter sendNewsletter(Newsletter newsletter) {
+		Newsletter newNewsletter = new Newsletter(newsletterCounter.incrementAndGet(), newsletter.title, newsletter.content, newsletter.postDateTime);
+		newsletters.add(newNewsletter);
+		return newsletters.stream().max(Comparator.comparing(Newsletter::getId)).orElse(null);
 	}
 }

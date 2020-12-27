@@ -2,29 +2,16 @@ package com.mailcast.Objects;
 
 import java.sql.Timestamp;
 
-public class Newsletter {
+public class NewsletterAPIO {
 	
-	public final long id;
 	public final String title;
 	public final String content;
 	public final Timestamp postDateTime;
 	
-	/**
-	 * A Newsletter has title, content and date time of posted, and once created, those can not be changed
-	 * @param id
-	 * @param title
-	 * @param content
-	 * @param postDateTime The time this newsletter is posted
-	 */
-	public Newsletter(long id, String title, String content, Timestamp postDateTime) {
-		this.id = id;
+	public NewsletterAPIO(String title, String content, Timestamp postDateTime) {
 		this.title = title;
 		this.content = content;
 		this.postDateTime = postDateTime;
-	}
-	
-	public long getId() {
-		return this.id;
 	}
 	
 	@Override
@@ -34,14 +21,13 @@ public class Newsletter {
             return true; 
         } 
   
-        if (!(o instanceof Newsletter)) { 
+        if (!(o instanceof NewsletterAPIO)) { 
             return false; 
         } 
            
-        Newsletter c = (Newsletter) o; 
+        NewsletterAPIO c = (NewsletterAPIO) o; 
         
         return !(
-        		(this.id != c.id) ||
         		(this.title != null && !this.title.equals(c.title)) ||
         		(this.title == null && c.title != null) ||
         		(this.content != null && !this.content.equals(c.content)) ||
