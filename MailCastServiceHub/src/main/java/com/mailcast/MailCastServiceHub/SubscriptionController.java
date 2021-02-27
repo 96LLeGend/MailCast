@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mailcast.Objects.APIGetResult;
 import com.mailcast.Objects.Newsletter;
-import com.mailcast.Objects.NewsletterAPIO;
+import com.mailcast.Objects.PostingNewsletter;
 import com.mailcast.Objects.Subscription;
 import com.mailcast.WorkersHub.MockDataBase;
 
@@ -30,9 +30,10 @@ public class SubscriptionController {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
 		}
 	}
-	
+
+	//Use @RequestParam instead of @RequestBody for testing different way to create request
 	@PostMapping("/subscribe")
-	public Subscription subscribe(@RequestBody String emailAddress) {
+	public Subscription subscribe(@RequestParam(value = "emailAddress") String emailAddress) {
 		try {
 			return MockDataBase.subscribe(emailAddress);
 		} catch (Exception ex) {
@@ -40,6 +41,7 @@ public class SubscriptionController {
 		}
 	}
 	
+	//Use @PathVariable instead of @RequestParam for testing different way to create request
 	@DeleteMapping("/unsubscribe/{emailAddress}")
 	public void unsubscribe(@PathVariable String emailAddress) {
 		try {

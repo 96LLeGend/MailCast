@@ -2,16 +2,14 @@ package com.mailcast.Objects;
 
 import java.sql.Timestamp;
 
-public class NewsletterAPIO {
+public class PostingNewsletter {
 	
 	public final String title;
 	public final String content;
-	public final Timestamp postDateTime;
 	
-	public NewsletterAPIO(String title, String content, Timestamp postDateTime) {
+	public PostingNewsletter(String title, String content) {
 		this.title = title;
 		this.content = content;
-		this.postDateTime = postDateTime;
 	}
 	
 	@Override
@@ -21,19 +19,17 @@ public class NewsletterAPIO {
             return true; 
         } 
   
-        if (!(o instanceof NewsletterAPIO)) { 
+        if (!(o instanceof PostingNewsletter)) { 
             return false; 
         } 
            
-        NewsletterAPIO c = (NewsletterAPIO) o; 
+        PostingNewsletter c = (PostingNewsletter) o; 
         
         return !(
         		(this.title != null && !this.title.equals(c.title)) ||
         		(this.title == null && c.title != null) ||
         		(this.content != null && !this.content.equals(c.content)) ||
-        		(this.content == null && c.content != null) ||
-        		(this.postDateTime != null && !this.postDateTime.equals(c.postDateTime)) ||
-        		(this.postDateTime == null && c.postDateTime != null)
+        		(this.content == null && c.content != null)
         		);
     } 
 }

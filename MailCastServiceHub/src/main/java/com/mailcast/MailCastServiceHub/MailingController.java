@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,9 @@ public class MailingController {
 	}
 	
 	@PostMapping("/newsletter")
-	public Newsletter postNewNewsletter(@RequestBody NewsletterAPIO newsletter) {
+	public Newsletter postNewNewsletter(@RequestBody PostingNewsletter newsletter) {
 		try {
-			Newsletter newNewsletter = new Newsletter(0, newsletter.title, newsletter.content, newsletter.postDateTime);
+			Newsletter newNewsletter = new Newsletter(0, newsletter.title, newsletter.content, new Timestamp(System.currentTimeMillis()));
 			return MockDataBase.sendNewsletter(newNewsletter);
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
