@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.mailcast.WorkersHub.*;
 import com.mailcast.Objects.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/mailing")
 public class MailingController {

@@ -3,6 +3,7 @@ package com.mailcast.MailCastServiceHub;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.mailcast.Objects.PostingNewsletter;
 import com.mailcast.Objects.Subscription;
 import com.mailcast.WorkersHub.MockDataBase;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/subscription")
 public class SubscriptionController {

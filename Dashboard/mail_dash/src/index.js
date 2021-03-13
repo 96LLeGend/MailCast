@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {App, Example} from './App';
-import {PendingLetters} from './PendingLetters';
+import {PendingLetters} from './pendingLetters';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Example />
+    <PendingLetters />
   </React.StrictMode>,
   document.getElementById('root')
 );

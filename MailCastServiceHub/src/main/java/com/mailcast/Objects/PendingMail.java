@@ -3,7 +3,8 @@ package com.mailcast.Objects;
 import java.sql.Timestamp;
 
 public class PendingMail {
-	
+
+	public final long id;
 	public final String emailAddress;
 	public final long newsletterId;
 	public final String title;
@@ -13,6 +14,7 @@ public class PendingMail {
 	
 	/**
 	 * A pending email to be sent, only the number of attempt left can be changed
+	 * @param id
 	 * @param emailAddress
 	 * @param newsletterId
 	 * @param title
@@ -20,7 +22,8 @@ public class PendingMail {
 	 * @param postDatTime
 	 * @param attemptLeft
 	 */
-	public PendingMail(String emailAddress, long newsletterId, String title, String content, Timestamp postDateTime, byte attemptLeft) {
+	public PendingMail(long id, String emailAddress, long newsletterId, String title, String content, Timestamp postDateTime, byte attemptLeft) {
+		this.id = id;
 		this.emailAddress = emailAddress;
 		this.newsletterId = newsletterId;
 		this.title = title;
@@ -51,6 +54,7 @@ public class PendingMail {
         PendingMail c = (PendingMail) o; 
         
         return !(
+        		(this.id != c.id) ||
         		(this.emailAddress != null && !this.emailAddress.equals(c.emailAddress)) ||
         		(this.emailAddress == null && c.emailAddress != null) ||
         		(this.newsletterId != c.newsletterId) ||

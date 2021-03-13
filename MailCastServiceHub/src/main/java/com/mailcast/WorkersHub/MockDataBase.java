@@ -13,6 +13,7 @@ public class MockDataBase {
 	
 	private final static AtomicLong newsletterCounter = new AtomicLong();
 	private final static AtomicLong logEntryCounter = new AtomicLong();
+	private final static AtomicLong pendingLettersCounter = new AtomicLong();
 
 	private static List<Subscription> subscriptions = new ArrayList<Subscription>();
 	private static List<Newsletter> newsletters = new ArrayList<Newsletter>();
@@ -35,8 +36,8 @@ public class MockDataBase {
 		logs.add(log1);
 		logs.add(log2);
 		
-		PendingMail pending1 = new PendingMail("abc@efg.com", 2, news2.title, news2.content, news2.postDateTime, (byte)2);
-		PendingMail pending2 = new PendingMail("123@efg.com", 2, news2.title, news2.content, news2.postDateTime, (byte)2);
+		PendingMail pending1 = new PendingMail(pendingLettersCounter.incrementAndGet(), "abc@efg.com", 2, news2.title, news2.content, news2.postDateTime, (byte)2);
+		PendingMail pending2 = new PendingMail(pendingLettersCounter.incrementAndGet(), "123@efg.com", 2, news2.title, news2.content, news2.postDateTime, (byte)2);
 		pendingMails.add(pending1);
 		pendingMails.add(pending2);
 	}
