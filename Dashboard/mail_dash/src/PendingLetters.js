@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './pendingLetters.css';
+import './main.css';
 
 export function PendingLetters() {
 

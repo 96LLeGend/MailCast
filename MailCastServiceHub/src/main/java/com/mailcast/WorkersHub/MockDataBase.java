@@ -32,7 +32,7 @@ public class MockDataBase {
 		newsletters.add(news2);
 		
 		LogEntry log1 = new LogEntry(logEntryCounter.incrementAndGet(), "abc@efg.com", news1, false, new Timestamp(2020, 12, 22, 8, 10, 20, 31));
-		LogEntry log2 = new LogEntry(logEntryCounter.incrementAndGet(), "123@efg.com", news1, true, new Timestamp(2020, 12, 22, 8, 10, 20, 32));
+		LogEntry log2 = new LogEntry(logEntryCounter.incrementAndGet(), "123@efg.com", news2, true, new Timestamp(2020, 12, 22, 8, 10, 20, 32));
 		logs.add(log1);
 		logs.add(log2);
 		
