@@ -79,6 +79,14 @@ public class MockDataBase {
 	public static Newsletter sendNewsletter(Newsletter newsletter) {
 		Newsletter newNewsletter = new Newsletter(newsletterCounter.incrementAndGet(), newsletter.title, newsletter.content, newsletter.postDateTime);
 		newsletters.add(newNewsletter);
-		return newsletters.stream().max(Comparator.comparing(Newsletter::getId)).orElse(null);
+		newNewsletter = newsletters.stream().max(Comparator.comparing(Newsletter::getId)).orElse(null);
+		if(newNewsletter != null) {
+			for(Subscription sus : subscriptions) {
+				PendingMail newPending = new PendingMail(pendingLettersCounter.incrementAndGet(), sus.emailAddress, newNewsletter.id, newNewsletter.title, newNewsletter.content, newNewsletter.postDateTime, (byte)2);
+				pendingMails.add(newPending);
+			}
+		}
+		return newNewsletter;
+		
 	}
 }
