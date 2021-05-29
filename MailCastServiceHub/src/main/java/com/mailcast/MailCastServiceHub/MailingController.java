@@ -45,7 +45,8 @@ public class MailingController {
 	@PostMapping("/newsletter")
 	public Newsletter postNewNewsletter(@RequestBody PostingNewsletter newsletter) {
 		try {
-			Newsletter newNewsletter = new Newsletter(0, newsletter.title, newsletter.content, new Timestamp(System.currentTimeMillis()));
+			Newsletter newNewsletter = new Newsletter(0, newsletter.title,
+		    newsletter.content, new Timestamp(System.currentTimeMillis()));
 			return MockDataBase.sendNewsletter(newNewsletter);
 		} catch (Exception ex) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);

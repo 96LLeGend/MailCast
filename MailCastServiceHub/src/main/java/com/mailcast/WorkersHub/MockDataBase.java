@@ -77,6 +77,7 @@ public class MockDataBase {
 	}
 	
 	public static Newsletter sendNewsletter(Newsletter newsletter) {
+
 		Newsletter newNewsletter = new Newsletter(newsletterCounter.incrementAndGet(), newsletter.title, newsletter.content, newsletter.postDateTime);
 		newsletters.add(newNewsletter);
 		newNewsletter = newsletters.stream().max(Comparator.comparing(Newsletter::getId)).orElse(null);

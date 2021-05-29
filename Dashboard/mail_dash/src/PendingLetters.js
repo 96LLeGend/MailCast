@@ -13,8 +13,10 @@ export function PendingLetters() {
   const [sendLetterState, setSendLetterState] = useState(sendingState.IDLE);
   const [sendLetterMessage, setSendLetterMessage] = useState('');
   const triggerReloadList = true;
+  const [content, setContent] = useState('');
+  const [title, setTitle] = useState('');
 
-  function PostNewsletter(){
+  const PostNewsletter = () => {
     setSendLetterState(sendingState.SENDING);
     setSendLetterMessage('Sending...');
 
@@ -23,8 +25,8 @@ export function PendingLetters() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
-        title: 'Post NewsLetter 27/03/2021_4',
-        content: 'NewsLetter 27/03/2021_4 content'
+        title: title,
+        content: content
       })
     };
 
@@ -33,8 +35,15 @@ export function PendingLetters() {
       //.then(data => console.log(data))
       .then(
         (result) => {
-          setSendLetterState(sendingState.COMPLETE);
-          setSendLetterMessage('Sent successful!');
+          if(response.status === 200){
+            setSendLetterState(sendingState.COMPLETE);
+            setSendLetterMessage('Sent successful!');
+            setTitle('');
+            setContent('');
+          } else {
+            setSendLetterState(sendingState.COMPLETEWITHERROR);
+            setSendLetterMessage('Sent failure!');
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
@@ -53,7 +62,17 @@ export function PendingLetters() {
       <div style = {{display : 'flex', gap : 20, marginTop : 50, marginLeft : '40%'}}>
         <div>
           {sendLetterState !== sendingState.SENDING && 
-            (<button onClick={() => PostNewsletter()}>Send</button>)}
+            (<form onSubmit={PostNewsletter}>       
+              <label>
+                Ttile:
+                <input type="text" value={title} onChange={v => setTitle(v.target.value)} />        
+              </label>
+              <label>
+                Content:
+                <input type="text" value={content} onChange={v => setContent(v.target.value)} />        
+              </label>
+              <input type="submit" value="Submit" />
+            </form>)}
         </div>
         <div>{sendLetterMessage}</div>
       </div>
